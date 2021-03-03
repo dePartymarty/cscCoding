@@ -15,21 +15,21 @@ int main(int argc, char** argv)
     //cout << jsonString << endl;
     //processJSONObject(jsonString, 0);
     LinkedList* ll = new LinkedList();
-    
     ll->addEnd(4);
-    ll->addEnd(6);
+    ll->addEnd(3);
     ll->addEnd(8);
     ll->addEnd(2);
-    ll->addFront(10);
-    ll->addFront(20);
-    ll->addFront(30);
-    ll->addFront(40);
-    int value1 = ll->removeFront();
+    ll->addFront(13);
+    ll->addFront(17);
     ll->display();
-    int value = ll->removeEnd();
+    
+    
+    int index = ll->addAtIndex(4,1);
+
+    
+    
+    cout << index << endl;
     ll->display();
-    cout << value << endl;
-    cout << value1 << endl;
     return 0;
 }
 

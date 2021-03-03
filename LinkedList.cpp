@@ -11,6 +11,142 @@ LinkedList::LinkedList()
     this->count = 0;
 }
 
+int LinkedList::removeAtIndex(int index)
+{
+    if(this->head)
+    {
+        if(index < 0 || index >= this->count)
+        {
+            cout << "ArrayIndexOutOfBoundException!!!!" << endl;
+        }
+        else
+        {
+            //I actuall have something to remove
+            if(index == 0)
+            {
+                return this->removeFront();
+            }
+            else if(index == this->count-1)
+            {
+                return this->removeEnd();
+            }
+            else
+            {
+                //we are removing from somewhere in the middle
+                Node* prevDude = this->head;
+                Node* dude2Remove = this->head;
+
+                //How do I get prevDude and dude2Remove set in a single loop?
+                //run dude2Remove to the correct index
+                for(int i = 0; i < index; i++)
+                {
+                    dude2Remove = dude2Remove->getNextNode();
+                }
+
+                //now make preDude point to the node right before dude2Remove
+                while(prevDude->getNextNode() != dude2Remove)
+                {
+                    prevDude = prevDude->getNextNode();
+                }
+
+                /* Identical result as the while loop above
+                //what is another way we could have written the while loop above?
+                for(int i = 0; i < index-1; i++)
+                {
+                    prevDude = prevDude->getNextNode();
+                }
+                */
+
+               //Now everything is position and we are ready to operate!!!
+               prevDude->setNextNode(dude2Remove->getNextNode());
+               dude2Remove->setNextNode(NULL);
+               int value2Return = dude2Remove->getPayload();
+               delete(dude2Remove);
+               this->count--;
+               return value2Return;
+            }
+            
+        }
+        
+    }
+    else
+    {
+        cout << "Nothing to Remove from the Empty List" << endl;
+    }
+    
+}
+
+int LinkedList::addAtIndex(int index, int value)
+{
+      if(this->head)
+      {
+                //we are removing from somewhere in the middle
+                Node* prevDude = this->head;
+                Node* dude2add = this->head;
+                Node* n = new Node(index);
+                Node* tempCurr = new Node(value);
+
+                //How do I get prevDude and dude2Remove set in a single loop?
+                //run dude2Remove to the correct index
+                for(int i = 0; i < index; i++)
+                {
+                    dude2add = dude2add->getNextNode();
+                }
+
+                //now make preDude point to the node right before dude2Remove
+                while(prevDude->getNextNode() != dude2add)
+                {
+                    prevDude = prevDude->getNextNode();
+                }
+
+               //Now everything is position and we are ready to operate!!!
+               prevDude->setNextNode(tempCurr);
+               tempCurr->setNextNode(dude2add);
+               int value2Return = dude2add->getPayload();
+               
+               
+               this->count++;
+               return value2Return;
+            
+        }
+        
+    
+
+}
+
+
+void LinkedList::addFront(int value)
+{
+    if(this->head)
+    {
+        //add it to the front
+        Node* n = new Node(value);
+        n->setNextNode(this->head);
+        this->head = n;
+         this->count++;
+    }
+    else
+    {
+        //we have an empty list, so addFront and addEnd mean the same thing
+        this->addEnd(value);
+    }
+}
+
+int LinkedList::removeFront()
+{
+    if(this->head)
+    {
+        Node* currFront = this->head;
+        this->head = this->head->getNextNode();
+        currFront->setNextNode(NULL);
+        int valueToReturn = currFront->getPayload();
+        delete(currFront);
+        this->count--;
+        return valueToReturn;
+    }
+    
+}
+
 void LinkedList::addEnd(int value)
 {
     Node* n = new Node(value);
@@ -29,31 +165,6 @@ void LinkedList::addEnd(int value)
     }
     this->count++;
 }
-
-void LinkedList::addFront(int value)
-{
-    Node* n = new Node(value);
-    Node* tempNode = this->head;
-    this->head = n;
-    this->head->setNextNode(tempNode);
-
-}
-
-
-int LinkedList::removeFront()
-{
-    Node* m = this->head;        
-    Node* currNode = m->getNextNode();
-    int value1 = m->getPayload();
-    this->head = currNode;
-    this->head->setNextNode(currNode->getNextNode());
-        
-    delete(m); //if we didn't do this, we technically have a memory leak
-    return value1;
-    
-    
-}
-
 
 int LinkedList::removeEnd()
 {
