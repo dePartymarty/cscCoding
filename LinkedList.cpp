@@ -10,6 +10,51 @@ LinkedList::LinkedList()
     this->tail = NULL;
     this->count = 0;
 }
+void LinkedList::insertionSort(int ArrayLength)
+{
+
+    Node* tempSwap = this->head;
+    Node* theFollower = this->head;
+    Node* current = this->head;
+    int count2 = 0;
+    int count3 = this->count;
+    while(count2 < count3)
+    {
+        theFollower = theFollower->getNextNode();
+        if(tempSwap->getPayload() < theFollower->getPayload())
+        {
+            current = theFollower;
+            tempSwap->setNextNode(theFollower->getNextNode());
+            theFollower->setNextNode(tempSwap);
+        }
+        tempSwap = tempSwap->getNextNode();
+        count2 = count2-1;
+    }
+}
+void LinkedList::addAtIndex(int value, int index)
+{
+    if(index == 0)
+    {
+        this->addFront(value);
+    }
+    else if(index == this->count)
+    {
+        this->addEnd(value);
+    }
+    else
+    {
+        Node* dude2Add = new Node(value);
+        Node* prevDude = this->head;
+        for(int i = 0; i < (index-1); i++)
+        {
+            prevDude = prevDude->getNextNode();
+        }
+        dude2Add->setNextNode(prevDude->getNextNode());
+        prevDude->setNextNode(dude2Add);
+        this->count++;
+    }
+    
+}
 
 int LinkedList::removeAtIndex(int index)
 {
@@ -75,45 +120,6 @@ int LinkedList::removeAtIndex(int index)
     }
     
 }
-
-int LinkedList::addAtIndex(int index, int value)
-{
-      if(this->head)
-      {
-                //we are removing from somewhere in the middle
-                Node* prevDude = this->head;
-                Node* dude2add = this->head;
-                Node* n = new Node(index);
-                Node* tempCurr = new Node(value);
-
-                //How do I get prevDude and dude2Remove set in a single loop?
-                //run dude2Remove to the correct index
-                for(int i = 0; i < index; i++)
-                {
-                    dude2add = dude2add->getNextNode();
-                }
-
-                //now make preDude point to the node right before dude2Remove
-                while(prevDude->getNextNode() != dude2add)
-                {
-                    prevDude = prevDude->getNextNode();
-                }
-
-               //Now everything is position and we are ready to operate!!!
-               prevDude->setNextNode(tempCurr);
-               tempCurr->setNextNode(dude2add);
-               int value2Return = dude2add->getPayload();
-               
-               
-               this->count++;
-               return value2Return;
-            
-        }
-        
-    
-
-}
-
 
 void LinkedList::addFront(int value)
 {
