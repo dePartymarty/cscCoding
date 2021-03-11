@@ -16,9 +16,9 @@ void LinkedList::insertionSort(int ArrayLength)
     Node* tempSwap = this->head;
     Node* theFollower = this->head;
     Node* current = this->head;
-    int count2 = 0;
-    int count3 = this->count;
-    while(count2 < count3)
+    int count_one = 0;
+    int count_two = this->count;
+    while(count_one < count_two)
     {
         theFollower = theFollower->getNextNode();
         if(tempSwap->getPayload() < theFollower->getPayload())
@@ -28,9 +28,11 @@ void LinkedList::insertionSort(int ArrayLength)
             theFollower->setNextNode(tempSwap);
         }
         tempSwap = tempSwap->getNextNode();
-        count2 = count2-1;
+        count_one = count_two ++;
     }
 }
+    
+ 
 void LinkedList::addAtIndex(int value, int index)
 {
     if(index == 0)

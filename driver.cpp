@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#define ARRAY_LENGTH 10 //called a macro
+#define ArrayLength 7 //called a macro
  
 //prototype functions
 void insertionSort(int ar[]);
@@ -19,9 +19,9 @@ int main(int argc, char** argv)
 {
     srandom(time(NULL));
     long val; 
-    int ar[ARRAY_LENGTH];
+    int ar[ArrayLength];
 
-    for(int i = 0; i < ARRAY_LENGTH; i++)
+    for(int i = 0; i < ArrayLength; i++)
     {
         val = random();
         val = (val % 1000)+1;
@@ -40,16 +40,17 @@ int main(int argc, char** argv)
     LinkedList* ll = new LinkedList();
     ll->addEnd(4);
     ll->addEnd(6);
-    ll->addEnd(8);
+    ll->addEnd(5);
     ll->addEnd(2);
+    ll->addEnd(10);
     ll->addFront(13);
     ll->addFront(17);
-    ll->display();
+   // ll->display();
     int value = ll->removeAtIndex(3);
     ll->display();
-    cout << value << endl;
+      cout << value << endl;
     ll->addAtIndex(6, 2);
-    ll->insertionSort(6);
+    ll->insertionSort(0);
     ll->display();
   
     return 0;
@@ -57,12 +58,12 @@ int main(int argc, char** argv)
 
 void displayIntArray(int ar[])
 {
-    for(int i = 0; i < ARRAY_LENGTH; i++)
+    for(int i = 0; i < ArrayLength; i++)
     {
         cout << ar[i] << endl;
     }
 }
-
+/*
 void insertionSort(int ar[])
 {
     int tempSwap;
@@ -79,7 +80,7 @@ void insertionSort(int ar[])
         }
     }
 }
-
+*/
 string processJSONObject(string json, int start)
 {
     if(json[start] == '[')
